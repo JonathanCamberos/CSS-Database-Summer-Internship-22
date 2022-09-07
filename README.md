@@ -9,9 +9,9 @@ database is near 70% completion, will begin merging documentation soon
 
 ## Requirements
 
-1. You should have access to the [CSS Summer Internship Database](https://docs.google.com/spreadsheets/d/1x2p1_AXASEXA655gIC53bkgN_rhFiCJt4dsJku2w9-c/edit?usp=sharing)
+1. You should have access to the [CSS Summer Internship Database](https://docs.google.com/spreadsheets/d/1irLCvdWuHS_8ike9W2nMcvKVPpnmKdWzci6BriPaWbs/edit?usp=sharing)
 
-2. You should have accress to the [CSS Summer Internship Database Script](https://script.google.com/u/1/home/projects/15O3Tl09L3IUuakBaIUPn-NA7HWwESrwezV5nw1lXgIdcA9cLJzr_ysXE/edit?pli=1)
+2. You should have accress to the [CSS Summer Internship Database Script](https://docs.google.com/spreadsheets/d/1irLCvdWuHS_8ike9W2nMcvKVPpnmKdWzci6BriPaWbs/edit?usp=sharing)
 
 3. Access to the CSS Sumer Internship Database Script on Git
 

@@ -3,12 +3,20 @@
   Prints summary in "Database" ss, in corresponding WeekNum/WAHF/WPL Columns
 */
 
+function run_Summerize_WAHF_WPL(){
+  //WAHF 1
+  //WPL 2
+  let weekNum = 1;
+  let formNumber = 1;
+  summerize_WAHF_WPL(weekNum, formNumber);
+
+}
 
 /* function summerize_MCF()
   Grabs certain MCF info in weekNum from "Weekly Forms", and prints to "Database" ss
 
 */
-function summerize_WAHF_WPL() {
+function summerize_WAHF_WPL(weekNum, formNumber) {
 
   let ss = SpreadsheetApp.getActiveSpreadsheet();
   let weeklyFormsLog = ss.getSheetByName("Weekly Forms"); 
@@ -17,7 +25,6 @@ function summerize_WAHF_WPL() {
 
   let weeklyFormsLogRow = weeklyFormsLog.getLastRow();
   
-  let weekNum = 1;
 
   //grabs Column A, from "Weekly Forms" ss
   let uidList = weeklyFormsLog.getRange(8, 1, weeklyFormsLogRow-7, 1).getValues();
@@ -26,41 +33,47 @@ function summerize_WAHF_WPL() {
   // testing - print.getRange(5,4, uidList.length, 1).setValues(uidList);
 
   //grabs 1st / 2nd column in certain week, # of submissions
-  let column = 2 + ((weekNum-1)*4);
+  let column;
+  let currWeekResponses;
 
-  let wahfWeekRes = weeklyFormsLog.getRange(8, column, weeklyFormsLogRow-7, 1).getValues();
+  if(formNumber == 1){
+    //WAHF
+    let shiftRight = 2;
+    column = shiftRight + ((weekNum-1)*4)+0;
+    currWeekResponses = weeklyFormsLog.getRange(8, column, weeklyFormsLogRow-7, 1).getValues();
 
-  let wplWeekRes =  weeklyFormsLog.getRange(8, column+1, weeklyFormsLogRow-7, 1).getValues();
+  }else if (formNumber == 2){
+    //WPL
+    let shiftRight = 2;
+    column = shiftRight + ((weekNum-1)*4)+1;
+    currWeekResponses =  weeklyFormsLog.getRange(8, column, weeklyFormsLogRow-7, 1).getValues();
+
+  }else{
+    return;
+  }
+ 
 
   //cleans up error codes
-  let wahfWeekRes1D = transform2D(wahfWeekRes);
-  let wplWeekRes1D = transform2D(wplWeekRes);
-
+  let currWeekResponses1D = transform2D(currWeekResponses);
+ 
   //if Integer is s < 0 (error code), change to 0
-  let holder1 = wahfWeekRes1D.map(function(currVal){
-    if(currVal <= 0){
+  let holder = currWeekResponses1D.map(function(currVal){
+    Logger.log(currVal)
+    if(currVal == -2){
       return 0;
     }
-    return currVal;
+    return 1;
   })
 
-   //if Integer is s < 0 (error code), change to 0
-  let holder2 = wplWeekRes1D.map(function(currVal){
-    if(currVal <= 0){
-      return 0;
-    }
-    return currVal;
-  })
-
-  let wahfWeekRes2D = transform1D(holder1);
-  let wplWeekRes2D = transform1D(holder2);
+  let currWeekResponses2D = transform1D(holder);
 
   // testintg - print.getRange(3, 7, mcfWeekRes.length, 1).setValues(mcfWeekRes);
   // testing - print.getRange(2,2).setValue(mcfWeekRes2D.length)
   
+
   //pass results to copy to corresponding week
-  copyToDatabase(wahfWeekRes2D, weekNum, database, 1);
-  copyToDatabase(wplWeekRes2D, weekNum, database, 2);
+  //copyToDatabase(wplWeekRes2D, weekNum, database, 2);
+  copy_WAHF_WPL_ToDatabase(currWeekResponses2D, weekNum, database, formNumber);
 }
 
 /* function copyMCFToDatabase()
@@ -70,22 +83,23 @@ function summerize_WAHF_WPL() {
   weekNum - Integer
   formType - Integer
 */
-function copy_WAHF_WPL_ToDatabase(mcfWeekRes, database, weekNum, formType){
+function copy_WAHF_WPL_ToDatabase(currWeekResponses, weekNum, database, formType){
 
   //calculates MCF Column for corresponding Week
-  let leftShift = 13;
+  let rightShift = 14;
   let column;
 
   if(formType == 1){
-    column = leftShift + ((weekNum-1)*10) + 0;
+    column = rightShift + ((weekNum-1)*9) + 0;
 
   }else if(formType == 2){
-    column = leftShift + ((weekNum-1)*10) + 2;
+    column = rightShift + ((weekNum-1)*9) + 1;
 
   }else{
     return;
   }
   
   //copy paste :)
-  database.getRange(4, column, mcfWeekRes.length, 1).setValues(mcfWeekRes);
+  database.getRange(4, column, currWeekResponses.length, currWeekResponses[0].length).setValues(currWeekResponses);
 }
+

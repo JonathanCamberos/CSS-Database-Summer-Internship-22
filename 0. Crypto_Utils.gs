@@ -29,7 +29,7 @@ function smallerString(curr){
     }else{
       res += curr[i];
     }
-       
+       //resvole toUpperCase() Problem **********************************
   }
 
   return res.toUpperCase();

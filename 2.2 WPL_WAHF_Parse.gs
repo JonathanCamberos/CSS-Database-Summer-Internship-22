@@ -4,9 +4,18 @@
 */
 
 function runParse_WPL_WAHF_Sheets(){
-  let formNumber = 1;
+  //Wahf: 1
+  //Wpl: 2
+  let formNumber = 2;
+  let weekNum = 1;
 
-  parse_FrontDesk_StudySession(formNumber);
+  //Change based on how many number of submissions per week!!***********************************
+  let firstOnTimeRow = 38; 
+  let lastOnTimeRow = 66; 
+  let firstLateRow = 72;
+  let lastLateRow = 85;
+
+  parse_WPL_WAHF(formNumber, weekNum, firstOnTimeRow, lastOnTimeRow, firstLateRow, lastLateRow);
 }
 
 /*function parse_WPL_WAHF()
@@ -24,17 +33,17 @@ function runParse_WPL_WAHF_Sheets(){
   Results printed in "Weekly Forms" ss
 */
 //parses WAHF, WPL, MCF  Submissions sheet
-function parse_WPL_WAHF(formNumber) {
+function parse_WPL_WAHF(formNumber, weekNum, firstOnTimeRow, lastOnTimeRow, firstLateRow, lastLateRow) {
 
   let ss = SpreadsheetApp.getActiveSpreadsheet();
   let form;
   // testing - let print = ss.getSheetByName("WPL Print");
   let hashSheet = ss.getSheetByName("Hash Sheet");
   let weeklyFormsLog = ss.getSheetByName("Weekly Forms");
-  let weekNum = 1;
+  
   
   if(formNumber == 1){
-    form = ss.getSheetByName("WPL Form");
+    form = ss.getSheetByName("WAHF Form");
      
   }else if(formNumber == 2){
     form = ss.getSheetByName("WPL Form");
@@ -42,12 +51,6 @@ function parse_WPL_WAHF(formNumber) {
   }else{
     return;
   }
-
-  //Change based on how many number of submissions per week!!***********************************
-  let firstOnTimeRow = 2; 
-  let lastOnTimeRow = 8; 
-  let firstLateRow = 55;
-  let lastLateRow = 55;
 
   let formColumns = 3; 
   
@@ -58,6 +61,8 @@ function parse_WPL_WAHF(formNumber) {
   // s[0] = timeStamp, s[1] = uid, s[2] = passwordAttempt
   let onTimeSubmissions = form.getRange(firstOnTimeRow, 1, lastOnTimeRow-firstOnTimeRow+1, formColumns).getValues();
   let lateSubmissions = form.getRange(firstOnTimeRow, 1, lastOnTimeRow-firstOnTimeRow+1, formColumns).getValues();
+
+  Logger.log(onTimeSubmissions)
 
   //grabs column A, from "Database" ss, gets uid list
   let uidList = hashSheet.getRange(8, 1, hashSheetRows-7, 1).getValues();
@@ -88,8 +93,11 @@ function parse_WPL_WAHF(formNumber) {
 
     }else{
       //scholar has at least 1 submission
-     
+
+      /*
+      password code we are going to ignore for now :)
       //gets first valid entry and exit (**** WILL CHECK HASH KEY ***************) 
+      //uidCurrFormSubmissions - 2D array of submissions for curr uid
       let firstValidSubmission = validSubmission(uidCurrFormSubmissions, expectedHashList1D[currIndex]);
       
       //if none are valid (key is wrong)
@@ -102,14 +110,23 @@ function parse_WPL_WAHF(formNumber) {
         //setting submission to true 
         uidFormResults[currIndex] = 1;
       }
+      */
+      
+      uidFormResults[currIndex] = uidCurrFormSubmissions[0][0];
     }
   });
+
+  
     
+  //Logger.log(uidFormResults)
   //return results
   let uidFormResults2D = transform1D(uidFormResults);
 
+ 
+
   //recording 2D [] in correct week / form location
-  recordSubmissions(uidFormResults2D, formNumber, weekNum, weeklyFormsLog, print);
+  // testing - recordSubmissions(uidFormResults2D, formNumber, weekNum, weeklyFormsLog, print);
+  recordSubmissions(uidFormResults2D, formNumber, weekNum, weeklyFormsLog);
 }
 
 
@@ -139,7 +156,8 @@ function validSubmission(submissionsArr, correctKey){
 
 
 //since uidTimeResults is in same order as UID list, simply copy and paste in correct day
-function recordSubmissions(uidFormResults, formNumber, weekNum, weeklyFormsLog, print){
+// testing - function recordSubmissions(uidFormResults, formNumber, weekNum, weeklyFormsLog, print){
+function recordSubmissions(uidFormResults, formNumber, weekNum, weeklyFormsLog){
   
   let column;
   let shiftRight = 2;

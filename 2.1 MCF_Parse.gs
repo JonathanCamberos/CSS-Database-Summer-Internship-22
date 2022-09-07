@@ -3,6 +3,11 @@
   Prints results in "Weekly Forms" ss, in MCF Columns
 */
 
+function runParse_MCF_Sheets(){
+  let weekNum = 1;
+  parse_MenteeCheckInForm(weekNum)
+}
+
 /* parse_MenteeCheckInForm()
   Grabs "MCF Form" ss
   Specifically by sections determined by 
@@ -17,23 +22,27 @@
   if leadership member met with all Mentees
   Results printed in "Weekly Forms" ss
  */
-function parse_MenteeCheckInForm() {
+function parse_MenteeCheckInForm(weekNum) {
   let ss = SpreadsheetApp.getActiveSpreadsheet();
   let database = ss.getSheetByName("Database");
   let hashSheet = ss.getSheetByName("Hash Sheet");
   let form = ss.getSheetByName("MCF Form");
-  let print = ss.getSheetByName("MCF Print");
+  //let print = ss.getSheetByName("MCF Print");
   let weeklyFormsLog = ss.getSheetByName("Weekly Forms");
 
   let databaseRows = database.getLastRow();
   let hashSheetRows = hashSheet.getLastRow();
   let mentorToMentee = getMentorToMenteeList();
 
+  updateMenteeCount(mentorToMentee);
 
+
+  let menteeCount = database.getRange(4, 11, databaseRows-3, 1).getValues();
+  let menteeCount1D = transform2D(menteeCount);
   // for testing - print2D(mentorToMentee, 6, 2, print);
   
+  
   //to determine where to print results in "Weekly Forms" ss
-  let weekNum = 1;
 
   //grabs column A in "Database" ss
   let uidList = database.getRange(4, 1, databaseRows-3, 1).getValues();
@@ -42,8 +51,8 @@ function parse_MenteeCheckInForm() {
   // for testing - print.getRange(1,1, uidList.length, 1).setValues(uidList);
 
   //Change based on how many number of submissions per week!!***********************************
-  let firstOnTimeRow = 2; 
-  let lastOnTimeRow = 6; 
+  let firstOnTimeRow = 17; 
+  let lastOnTimeRow = 53; 
   let firstLateRow = 55;
   let lastLateRow = 55;
   let formColumns = 4; 
@@ -64,6 +73,8 @@ function parse_MenteeCheckInForm() {
   //final count for # of submissions per Leadership member
   let menteesMetRes = [];
 
+  Logger.log(onTimeSubmissions)
+  Logger.log(menteeCount1D)
   //for every uid
   uidListOneD.map(function(currUid, currIndex){
 
@@ -77,9 +88,11 @@ function parse_MenteeCheckInForm() {
     // testing - print.getRange(1,1, uidCurrFormSubmissions.length, uidCurrFormSubmissions[0].length).setValues(uidCurrFormSubmissions)
     // testing - print.getRange(3,3).setValue(uidCurrFormSubmissions.length);
     
+
+
     //if scholar has no submissions for MCF form, they get error code (can be fixed later)
     if(uidCurrFormSubmissions.length == 0){
-       menteesMetRes.push([false, -2]);
+       menteesMetRes.push([false, -3]);
 
       // testing - print.getRange(3+currIndex, 3).setValue("wow");
 
@@ -87,6 +100,22 @@ function parse_MenteeCheckInForm() {
     //scholar has at least 1 submission
     }else{
             
+      Logger.log(menteeCount1D[currIndex]);
+      Logger.log(uidCurrFormSubmissions.length)
+      Logger.log("clear");
+      if(menteeCount1D[currIndex] == "-"){
+        Logger.log("helo");
+        menteesMetRes.push(["N/A", "N/A"]);
+
+      }else if(menteeCount1D[currIndex] <= uidCurrFormSubmissions.length){
+        Logger.log("CORRECT!");
+        menteesMetRes.push([true, uidCurrFormSubmissions.length]);
+      }else{
+        Logger.log("NO!!");
+        menteesMetRes.push([false, uidCurrFormSubmissions.length]);
+      }
+
+      /*  Password testing code that we will ignore for now :)
       // testing - print.getRange(5,5).setValue(expectedHashList1D[currIndex]);
       // tesing - print.getRange(5, 5, uidCurrFormSubmissions.length, uidCurrFormSubmissions[0].length).setValues(uidCurrFormSubmissions);
       //gets all valid submissions (**** WILL CHECK HASH KEY ***************) 
@@ -117,16 +146,44 @@ function parse_MenteeCheckInForm() {
           menteesMetRes.push([false, allValidSubmission.length]);
         }
       }  
+
+      */
+      
     }
   });
 
   // testing - let menteesMetRes2D = transform1D(menteesMetRes)
   // testing - print.getRange(1, 4, menteesMetRes.length, 2).setValues(menteesMetRes);
+  Logger.log("FINAL **********");
+  Logger.log(menteesMetRes)
 
   //sends result to be recorded to "Weekly Forms" ss
   recordMCF(menteesMetRes, weeklyFormsLog, weekNum)
   
+  
+  
 }
+
+function updateMenteeCount(mentorToMentee){
+  let ss = SpreadsheetApp.getActiveSpreadsheet();
+  let database = ss.getSheetByName("Database");
+
+  let dbLastRow = database.getLastRow();
+
+  let numOfMentees = mentorToMentee.map(function(currRow){
+    if(currRow.length == 1){ //everyone starts with -1, which is counted for the length, so everyone has extra +1 length
+      return "-";
+    }else{
+      return currRow.length-1;
+    }
+  })
+
+  let numOfMentees2D = transform1D(numOfMentees);
+
+  database.getRange(4, 11, dbLastRow-3, 1).setValues(numOfMentees2D);
+
+}
+
 
 /* function recordMCF()
   Takes result of MCF Submissions
@@ -195,7 +252,7 @@ function getMentorToMenteeList(){
   
   //merges column C+B, from "Database" ss
   let lastFirstName = database.getRange(4, 2, databaseRows-3, 2).getValues();
-  let teamLeaderList = database.getRange(4,4, databaseRows-3, 1).getValues();
+  let teamLeaderList = database.getRange(4,5, databaseRows-3, 1).getValues();
   let firstLastName1D = lastFirstName.map(function(currRow){
     return currRow[1] + " " + currRow[0];
   })
@@ -231,8 +288,7 @@ function getMentorToMenteeList(){
       if(nameIndex == -1){
 
         //name does not exists (spelled wrong maybe)
-        mentorToMenteeList2D[nameIndex].push(-99);
-
+        
       //Tl does exist  
       }else{
         mentorToMenteeList2D[nameIndex].push(index);

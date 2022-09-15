@@ -12,9 +12,9 @@ Need to clean up Weekly Memo but is functional right now!
 
 ## Requirements
 
-1. You should have access to the [CSS Summer Internship Database](https://docs.google.com/spreadsheets/d/1irLCvdWuHS_8ike9W2nMcvKVPpnmKdWzci6BriPaWbs/edit?usp=sharing)
+1. You should have access to the [CSS Summer Internship Database](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
 
-2. You should have accress to the [CSS Summer Internship Database Script](https://docs.google.com/spreadsheets/d/1irLCvdWuHS_8ike9W2nMcvKVPpnmKdWzci6BriPaWbs/edit?usp=sharing)
+2. You should have accress to the [CSS Summer Internship Database Script](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
 
 3. Access to the CSS Sumer Internship Database Script on Git
 

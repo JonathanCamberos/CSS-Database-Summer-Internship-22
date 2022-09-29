@@ -16,6 +16,8 @@ Need to clean up Weekly Memo but is functional right now!
 
 2. You should have accress to the [CSS Summer Internship Database Script](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
 
+2.5  You should have accress to the [CSS Summer Professional Resources Database](https://docs.google.com/spreadsheets/d/1k40aol-a1_iJxkJW8Wcb41tijvK63XSadimy5CVV098/edit?usp=sharing)
+
 3. Access to the CSS Sumer Internship Database Script on Git
 
 4. You should have VSCode, [Typescript](https://www.typescriptlang.org/docs/handbook/basic-types.html), Clasp, and Git installed. If not, follow the steps in the [subsequent section](#tools-setup).

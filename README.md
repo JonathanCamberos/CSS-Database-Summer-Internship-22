@@ -1,6 +1,6 @@
 # CSS-Database-Summer-Internship-22
 
-Notes - there is public access to the College Success Scholars Database via this [link](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
+Notes - there is public VIEW access to the College Success Scholars Database via this [link](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
 
 Public Repository for CSS Database Development
 The Github Copy of the CSS Database is a testing code base for the real CSS Database hosted on Google Apps Script.
@@ -15,7 +15,7 @@ Need to clean up Weekly Memo but is functional right now!
 
 ## Requirements
 
-Notes - there is public access to the College Success Scholars Database via this [link](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
+Notes - there is public VIEW access to the College Success Scholars Database via this [link](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
 
 1. You should have edit access to the [CSS Summer Internship Database](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
 

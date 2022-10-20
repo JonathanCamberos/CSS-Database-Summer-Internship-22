@@ -6,10 +6,10 @@ Public Repository for CSS Database Development
 The Github Copy of the CSS Database is a testing code base for the real CSS Database hosted on Google Apps Script.
 
 Notes- 
-9-5-22
-Up and running, all finalized scripts have been submitted, ready for the year!
-Work in progress 8-8-22,
+
+8-8-22
 database is near 70% completion, will begin merging documentation soon
+
 Finished! 9-7-22
 database is complete! Parser and summaries are functional as well as Weekly Memo qeuries.
 Need to clean up Weekly Memo but is functional right now!

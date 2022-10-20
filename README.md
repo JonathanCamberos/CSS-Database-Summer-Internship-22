@@ -12,9 +12,11 @@ Need to clean up Weekly Memo but is functional right now!
 
 ## Requirements
 
-1. You should have access to the [CSS Summer Internship Database](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
+Notes - there is public access to the College Success Scholars Database via this [link](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
 
-2. You should have accress to the [CSS Summer Internship Database Script](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
+1. You should have edit access to the [CSS Summer Internship Database](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
+
+2. You should have edit accress to the [CSS Summer Internship Database Script](https://docs.google.com/spreadsheets/d/1Urx86Jjewe84lbw9ev44Plo6WWFcsxpU2sjBTzKxn1c/edit?usp=sharing)
 
 2.5  You should have accress to the [CSS Summer Professional Resources Database](https://docs.google.com/spreadsheets/d/1k40aol-a1_iJxkJW8Wcb41tijvK63XSadimy5CVV098/edit?usp=sharing)
 

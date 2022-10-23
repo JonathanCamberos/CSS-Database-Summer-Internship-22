@@ -7,13 +7,12 @@ The Github Copy of the CSS Database is a testing code base for the real CSS Data
 
 Notes- 
 
-8-8-22
-database is near 70% completion, will begin merging documentation soon
-
 Finished! 9-7-22
 database is complete! Parser and summaries are functional as well as Weekly Memo qeuries.
 Need to clean up Weekly Memo but is functional right now!
 
+8-8-22
+database is near 70% completion, will begin merging documentation soon
 
 ## Requirements
 
